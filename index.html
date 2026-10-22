@@ -37,7 +37,8 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-html,body{overflow-x:clip}
+html,body{overflow-x:clip;margin:0;padding:0}
+html{background:var(--ink)}
 body{background:var(--concrete);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--safety)}
 a{color:inherit}
