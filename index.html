@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prasoon Kundu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Prasoon Kundu — full-stack developer in Lucknow. Projects, layers, and a yard log.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a container yard. Yellow gate (hero) → ink healthcheck band → concrete yard of project containers
+   → ink Dockerfile of skills → yellow yard log → cobalt gate-out (contact). One committed light look. */
+:root{
+  --ink:#151515;
+  --ink-2:#2a2a2a;
+  --safety:#FFC81E;
+  --concrete:#E2E3DE;
+  --paper:#FBFBF8;
+  --cobalt:#1F3FD1;
+  --magenta:#DB1474;
+  --teal:#00806F;
+  --orange:#EE5A17;
+  --sky:#2C9FD0;
+  --steel:#8D918C;
+  --ok:#2FBF71;
+  --stencil:"Big Shoulders Stencil Display","Big Shoulders Stencil",Impact,"Arial Narrow",sans-serif;
+  --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Martian Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --gutter-l:max(16px,env(safe-area-inset-left,0px));
+  --gutter-r:max(16px,env(safe-area-inset-right,0px));
+  --ease:cubic-bezier(.2,.8,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{background:var(--concrete);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--safety)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+h1,h2,h3{font-family:var(--stencil);font-weight:900;text-transform:uppercase;line-height:.86;letter-spacing:.005em;margin:0;text-wrap:balance}
+p{margin:0}
+
+/* ---------- top bar + gantry rail ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--safety);border-bottom:3px solid var(--ink)}
+.top-in{display:flex;align-items:center;gap:20px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-box{font-family:var(--stencil);font-weight:900;font-size:22px;background:var(--ink);color:var(--safety);padding:2px 9px 0;letter-spacing:.06em}
+.logo-sub{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:7px 10px;border:2px solid transparent}
+.nav a:hover{border-color:var(--ink)}
+.nav a.cta{background:var(--ink);color:var(--safety)}
+.nav a.cta:hover{background:var(--magenta);color:#fff;border-color:var(--magenta)}
+.rail{position:absolute;left:0;right:0;bottom:-3px;height:3px}
+.trolley{position:absolute;left:0;bottom:-15px;width:46px;transform:translateX(var(--x,0px));transition:transform .15s linear;pointer-events:none}
+.trolley::before{content:"";position:absolute;left:22px;top:0;width:2px;height:6px;background:var(--ink)}
+.trolley span{position:absolute;top:6px;left:0;width:46px;height:12px;background:var(--magenta);border:2px solid var(--ink);background-image:repeating-linear-gradient(90deg,transparent 0 4px,rgba(0,0,0,.18) 4px 6px)}
+.loaded{font-family:var(--mono);font-size:10px;letter-spacing:.1em;min-width:10ch;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:760px){.nav a:not(.cta){display:none}.logo-sub{display:none}}
+
+/* ---------- hero ---------- */
+.hero{background:var(--safety);border-bottom:3px solid var(--ink);overflow:hidden;position:relative}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22px;background:repeating-linear-gradient(-45deg,var(--ink) 0 18px,var(--safety) 18px 36px);border-top:3px solid var(--ink)}
+.hero-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;padding-block:56px 96px}
+@media (max-width:900px){.hero-in{grid-template-columns:1fr;gap:40px;padding-block:36px 80px}}
+.cmd{display:inline-flex;gap:10px;align-items:center;font-family:var(--mono);font-size:12px;background:var(--ink);color:var(--safety);padding:8px 12px;max-width:100%;overflow-x:auto;white-space:nowrap}
+.cmd b{color:#fff;font-weight:400}
+.boot{font-family:var(--mono);font-size:11.5px;line-height:1.75;margin:14px 0 26px;min-height:9.2em;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere}
+.boot .ok{color:var(--ink);font-weight:600}
+.boot .caret{display:inline-block;width:.6em;height:1.1em;vertical-align:-2px;background:var(--ink);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero h1{font-size:clamp(62px,12vw,172px)}
+.hero h1 .l2{display:block;-webkit-text-stroke:3px var(--ink);color:transparent;transition:color .3s ease}
+.hero h1:hover .l2{color:var(--magenta)}
+.lede{font-size:clamp(17px,1.6vw,20px);max-width:36ch;margin-top:22px;font-weight:500}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:14px 18px;border:3px solid var(--ink);background:var(--ink);color:var(--safety);box-shadow:5px 5px 0 var(--ink);transition:transform .15s var(--ease),box-shadow .15s var(--ease),background .2s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.btn.alt{background:var(--paper);color:var(--ink)}
+.btn.alt:hover{background:var(--magenta);color:#fff}
+
+/* hero container (door end of a 40' high cube) */
+.box-stage{perspective:1100px;display:flex;justify-content:center}
+.box{position:relative;width:min(100%,420px);aspect-ratio:244/290;background:var(--cobalt);border:12px solid #12289a;border-top-width:16px;border-bottom-width:18px;transform:rotateY(var(--ry,-8deg)) rotateX(var(--rx,4deg));transform-style:preserve-3d;transition:transform .5s var(--ease);box-shadow:22px 22px 0 var(--ink)}
+.box .door{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;background-color:var(--cobalt);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 9px,rgba(0,0,0,.16) 9px 18px)}
+.box .door.l{left:0;border-right:2px solid #0e2180}
+.box .door.r{right:0}
+.bar{position:absolute;top:3%;bottom:3%;width:6px;background:linear-gradient(90deg,#c9ccd0,#8e9399);border-radius:3px}
+.bar::after{content:"";position:absolute;top:52%;left:-8px;width:22px;height:9px;background:#b9bdc2;border-radius:2px}
+.door.l .bar:nth-child(1){left:20%}.door.l .bar:nth-child(2){left:68%}
+.door.r .bar:nth-child(1){left:26%}.door.r .bar:nth-child(2){left:74%}
+.box .paint{position:absolute;inset:0;width:200%;display:grid;place-items:center;font-family:var(--stencil);font-weight:900;color:#fff;font-size:clamp(64px,9vw,110px);letter-spacing:.04em;pointer-events:none;place-items:start center;padding-top:24%}
+.box .door.r .paint{left:-100%}
+.box .code{position:absolute;top:5%;right:6%;font-family:var(--stencil);font-weight:800;color:#fff;font-size:clamp(16px,2vw,22px);letter-spacing:.08em;text-align:right;line-height:1.05;z-index:2}
+.cd{display:inline-block;border:2px solid #fff;padding:0 4px;margin-left:4px}
+.plate{position:absolute;left:6%;bottom:8%;width:56%;background:#e9eaec;color:var(--ink);font-family:var(--mono);font-size:clamp(8px,.85vw,10px);line-height:1.6;padding:8px 10px;border:2px solid #9aa0a6;z-index:2;box-shadow:inset 0 0 0 2px #d4d7da}
+.plate div{display:grid;grid-template-columns:7ch 1fr;gap:6px}
+.plate .h{font-weight:600;border-bottom:1px solid #9aa0a6;margin-bottom:4px;padding-bottom:2px;display:block}
+.sticker{position:absolute;top:-30px;left:-34px;z-index:3;background:var(--magenta);color:#fff;font-family:var(--stencil);font-weight:900;font-size:20px;line-height:.95;text-transform:uppercase;padding:12px 12px 10px;transform:rotate(-9deg);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);text-align:center}
+@media (max-width:900px){.sticker{left:-6px;top:-24px}}
+
+.pass{position:absolute;right:-40px;bottom:-64px;width:172px;margin:0;background:var(--paper);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transform:translateZ(40px) rotate(5deg);z-index:4;padding:8px;transition:transform .4s var(--ease)}
+.pass:hover{transform:translateZ(40px) rotate(0deg) scale(1.06)}
+.pass .clip{position:absolute;top:-15px;left:50%;width:36px;height:13px;background:#9aa0a6;border:2px solid var(--ink);border-radius:3px;transform:translateX(-50%)}
+.pass-h{display:block;background:var(--magenta);color:#fff;padding:5px 7px;margin:-8px -8px 8px;font-size:8.5px}
+.pass img{display:block;width:100%;height:auto;aspect-ratio:480/560;object-fit:cover;border:2px solid var(--ink);background:var(--ink-2)}
+.pass figcaption b{display:block;font-family:var(--stencil);font-weight:900;font-size:22px;text-transform:uppercase;line-height:.95;margin-top:8px}
+.pass figcaption .mono{font-size:8.5px;color:#55584f;display:block;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pass .barcode{display:block;height:18px;margin-top:7px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 13px)}
+@media (max-width:1180px){.pass{right:-8px}}
+@media (max-width:900px){.pass{width:134px;right:-6px;bottom:-48px}.box-stage{padding-bottom:40px}.pass figcaption b{font-size:18px}}
+
+/* ---------- healthchecks ---------- */
+.hc{background:var(--ink);color:var(--concrete)}
+.hc-in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding-block:56px}
+.hc-item{padding:8px 24px;border-left:1px solid #3a3a3a;display:flex;flex-direction:column;gap:10px}
+.hc-item:first-child{border-left:0;padding-left:0}
+.hc-tag{display:flex;align-items:center;gap:8px;color:var(--steel)}
+.hc-tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(47,191,113,.2)}
+.hc-num{font-family:var(--stencil);font-weight:900;font-size:clamp(56px,6.5vw,92px);line-height:.85;color:var(--safety);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hc-lbl{font-size:14px;max-width:26ch;color:#c9cac5}
+@media (max-width:820px){.hc-in{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px}.hc-item:nth-child(3){border-left:0;padding-left:0}}
+@media (max-width:420px){.hc-item{padding:8px 12px}}
+
+/* ---------- marquee ---------- */
+.marq{background:var(--magenta);color:#fff;border-block:3px solid var(--ink);transform:rotate(-1.4deg);margin:-8px -20px 0;position:relative;z-index:2;overflow:hidden}
+.marq-track{display:flex;width:max-content;animation:marq 38s linear infinite}
+.marq span{font-family:var(--stencil);font-weight:900;font-size:clamp(28px,4vw,44px);text-transform:uppercase;padding:10px 0;white-space:nowrap;letter-spacing:.03em}
+.marq i{font-style:normal;color:var(--safety);padding:0 22px}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- section heads ---------- */
+.sec{padding-block:96px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:48px}
+.sec-head h2{font-size:clamp(64px,10vw,140px)}
+.sec-head p{font-size:18px;max-width:42ch}
+.eyebrow{display:inline-block;background:var(--ink);color:var(--safety);padding:5px 9px;margin-bottom:16px}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}.sec{padding-block:72px}}
+
+/* ---------- yard (projects) ---------- */
+.yard{background-color:var(--concrete);background-image:linear-gradient(90deg,rgba(21,21,21,.05) 1px,transparent 1px),linear-gradient(rgba(21,21,21,.05) 1px,transparent 1px);background-size:56px 56px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:44px 32px}
+.crate{all:unset;box-sizing:border-box;display:flex;flex-direction:column;cursor:pointer;min-width:0;-webkit-tap-highlight-color:transparent}
+.crate:focus-visible{outline:3px solid var(--magenta);outline-offset:6px}
+.c-top{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--concrete);padding:8px 12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em}
+.c-top .sz{color:var(--steel)}
+.chip{margin-left:auto;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;padding:3px 7px;text-transform:uppercase;white-space:nowrap}
+.chip.live{background:var(--ok);color:var(--ink)}
+.chip.research{background:var(--sky);color:var(--ink)}
+.chip.done{background:var(--concrete);color:var(--ink)}
+.chip.transit{background:var(--safety);color:var(--ink)}
+.c-body{position:relative;aspect-ratio:16/9;perspective:1200px;background:#0f0f10;border:3px solid var(--ink);border-top:0;box-shadow:12px 12px 0 var(--ink);transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
+.crate:hover .c-body,.crate:focus-visible .c-body{transform:translate(-3px,-3px);box-shadow:15px 15px 0 var(--ink)}
+.c-in{position:absolute;inset:0;padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;color:var(--concrete);background:radial-gradient(120% 90% at 50% 120%,#2a2a2a,#0f0f10)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-family:var(--mono);font-size:10px;letter-spacing:.04em;border:1px solid #4a4a4a;padding:4px 7px;color:#ddd}
+.c-open{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--safety)}
+.c-door{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;background-color:var(--c);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 8px,rgba(0,0,0,.17) 8px 16px);transition:transform .75s var(--ease);backface-visibility:hidden}
+.c-door.l{left:0;transform-origin:left center;border-right:1px solid rgba(0,0,0,.35)}
+.c-door.r{right:0;transform-origin:right center}
+.crate:hover .c-door.l,.crate:focus-visible .c-door.l{transform:rotateY(-108deg)}
+.crate:hover .c-door.r,.crate:focus-visible .c-door.r{transform:rotateY(108deg)}
+.c-door .bar{width:5px}
+.c-door.l .bar:nth-child(1){left:22%}.c-door.l .bar:nth-child(2){left:70%}
+.c-door.r .bar:nth-child(1){left:24%}.c-door.r .bar:nth-child(2){left:72%}
+.c-door .bar::after{width:18px;height:7px;left:-7px}
+.c-paint{position:absolute;inset:0;width:200%;display:grid;place-items:center;font-family:var(--stencil);font-weight:900;text-transform:uppercase;color:#fff;font-size:calc(var(--fs,1) * clamp(36px,4.2vw,56px));letter-spacing:.03em;line-height:.9;text-align:center;padding:0 8%;pointer-events:none;text-shadow:0 2px 0 rgba(0,0,0,.15)}
+.c-door.r .c-paint{left:-100%}
+.c-line{margin-top:18px;font-size:15.5px;font-weight:500;max-width:44ch}
+@media (hover:none){.c-open-hint{display:inline}}
+.yard-note{margin-top:56px;color:#55584f}
+
+/* ---------- manifest dialog ---------- */
+dialog{border:3px solid var(--ink);padding:0;max-width:min(760px,calc(100vw - 32px));width:100%;max-height:calc(100vh - 48px);background:var(--paper);color:var(--ink);box-shadow:14px 14px 0 var(--ink)}
+dialog::backdrop{background:rgba(21,21,21,.66)}
+dialog[open]{animation:drop .45s var(--ease)}
+@keyframes drop{from{transform:translateY(-40px) rotate(-1.5deg);opacity:0}}
+.m-head{display:flex;align-items:center;gap:12px;padding:12px 18px;background:var(--ink);color:var(--safety);position:sticky;top:0;z-index:1}
+.m-close{all:unset;margin-left:auto;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:6px 10px;border:2px solid var(--safety)}
+.m-close:hover{background:var(--safety);color:var(--ink)}
+.m-close:focus-visible{outline:3px solid var(--magenta)}
+.m-title{padding:26px 22px 18px;border-bottom:3px solid var(--ink);background:var(--c);color:#fff;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 8px,rgba(0,0,0,.15) 8px 16px)}
+.m-title h3{font-size:clamp(46px,8vw,78px)}
+.m-title p{margin-top:10px;font-size:17px;font-weight:500;max-width:48ch}
+.m-rows{display:grid;grid-template-columns:150px minmax(0,1fr)}
+.m-rows > div{padding:14px 22px;border-bottom:1px solid #d8d9d3}
+.m-rows .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#5e615a;border-right:1px solid #d8d9d3}
+.m-rows ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.m-links{display:flex;flex-wrap:wrap;gap:10px}
+.m-links a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:8px 12px;background:var(--ink);color:var(--safety)}
+.m-links a:hover{background:var(--magenta);color:#fff}
+@media (max-width:560px){.m-rows{grid-template-columns:1fr}.m-rows .k{border-right:0;border-bottom:0;padding-bottom:0}}
+
+/* ---------- Dockerfile ---------- */
+.layers{background:var(--ink);color:var(--concrete)}
+.layers .sec-head p{color:#c9cac5}
+.layers .eyebrow{background:var(--safety);color:var(--ink)}
+.layers h2{color:var(--safety)}
+.df{border:2px solid #3a3a3a;background:#0c0c0c;box-shadow:12px 12px 0 var(--magenta)}
+.df-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:2px solid #3a3a3a;color:var(--steel)}
+.df-bar i{width:10px;height:10px;border-radius:50%;background:#3a3a3a;display:inline-block}
+.df-bar i:nth-child(1){background:var(--orange)}.df-bar i:nth-child(2){background:var(--safety)}.df-bar i:nth-child(3){background:var(--ok)}
+.df-bar span{margin-left:8px}
+.df-code{overflow-x:auto;padding:14px 0;counter-reset:ln}
+.df-code ol{list-style:none;margin:0;padding:0;min-width:760px}
+.df-code li{counter-increment:ln;display:grid;grid-template-columns:48px minmax(0,1fr);font-family:var(--mono);font-size:13px;line-height:2;padding-right:18px;transition:background .15s}
+.df-code li::before{content:counter(ln);color:#4d4d4d;text-align:right;padding-right:16px;font-variant-numeric:tabular-nums}
+.df-code li > span{white-space:pre}
+.df-code li:hover{background:#1d1d1d}
+.df-code li:hover .c{color:var(--safety)}
+.df-code .k{color:var(--magenta);font-weight:600}
+.df-code .s{color:#8fd3ff}
+.df-code .c{color:#7b7e78;transition:color .15s}
+.df-code .v{color:#f4f4f0}
+
+/* ---------- yard log ---------- */
+.log{background:var(--safety);border-top:3px solid var(--ink)}
+.tl{list-style:none;margin:0;padding:0;border-top:3px solid var(--ink)}
+.tl li{display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1.1fr);gap:16px 32px;padding-block:26px;border-bottom:3px solid var(--ink);align-items:baseline;transition:background .2s,padding .3s var(--ease)}
+.tl li:hover{background:var(--paper);padding-left:14px}
+.tl .when{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.tl h3{font-size:clamp(30px,3.6vw,44px);line-height:.92}
+.tl .org{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:8px;display:block}
+.tl p{font-size:16px;max-width:52ch}
+@media (max-width:820px){.tl li{grid-template-columns:1fr;gap:8px}}
+.extra{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:64px}
+@media (max-width:820px){.extra{grid-template-columns:1fr}}
+.extra h3{font-size:36px;margin-bottom:16px}
+.papers{display:flex;flex-direction:column;gap:10px}
+.papers div{display:flex;gap:12px;align-items:baseline;background:var(--paper);border:2px solid var(--ink);padding:12px 14px;font-weight:500}
+.papers .mono{color:#55584f;min-width:9ch}
+.stickers{display:flex;flex-wrap:wrap;gap:16px;padding-top:6px}
+.stk{font-family:var(--stencil);font-weight:900;font-size:30px;text-transform:uppercase;padding:12px 16px 9px;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);line-height:.95;transition:transform .25s var(--ease)}
+.stk:nth-child(1){background:var(--teal);color:#fff;transform:rotate(-4deg)}
+.stk:nth-child(2){background:var(--cobalt);color:#fff;transform:rotate(3deg)}
+.stk:nth-child(3){background:var(--orange);color:#fff;transform:rotate(-2deg)}
+.stk:hover{transform:rotate(0) scale(1.06)}
+.stk small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;font-weight:400;margin-top:6px;opacity:.9}
+
+/* ---------- gate out ---------- */
+.gate{background:var(--cobalt);color:#fff;border-top:3px solid var(--ink);position:relative;overflow:hidden}
+.gate h2{font-size:clamp(72px,13vw,190px);color:var(--safety)}
+.gate h2 span{display:block;color:#fff}
+.gate-in{padding-block:96px 72px}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:40px}
+.mail-addr{font-family:var(--mono);font-size:clamp(15px,2.4vw,24px);background:var(--paper);color:var(--ink);padding:14px 18px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);user-select:all;overflow-wrap:anywhere;min-width:0}
+.copy{all:unset;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:16px 18px;background:var(--safety);color:var(--ink);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.copy:hover{background:var(--magenta);color:#fff}
+.copy:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.socials{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+.socials a{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:12px 16px;border:2px solid #fff}
+.socials a:hover{background:#fff;color:var(--cobalt)}
+.foot{background:var(--ink);color:var(--steel)}
+.foot-in{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;padding-block:22px}
+.foot .exit{color:var(--ok)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="#top" aria-label="Prasoon Kundu, back to top"><span class="logo-box">KNDU</span><span class="logo-sub">Port of Lucknow</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#yard">Yard</a>
+      <a href="#layers">Layers</a>
+      <a href="#log">Log</a>
+      <a href="#gate">Contact</a>
+      <a class="cta" data-link="resume" href="#" target="_blank" rel="noopener">Resume ↗</a>
+    </nav>
+    <span class="loaded mono" id="loaded" aria-hidden="true">LOADED 0%</span>
+  </div>
+  <div class="rail" aria-hidden="true"><div class="trolley" id="trolley"><span></span></div></div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div>
+        <div class="cmd"><span>$</span><b>docker run -it prasoon/kundu:2027</b></div>
+<pre class="boot" id="boot" aria-label="Boot log">Pulling from lucknow/amity
+a1f3c0: Pull complete   ubuntu:lucknow
+9c2e71: Pull complete   linux + git          (ALiAS)
+4b7d08: Pull complete   python · next.js · fastapi · postgres
+e81a5f: Pull complete   foss-united/lucknow
+<span class="ok">✓ healthcheck passing · open to SDE roles</span></pre>
+        <h1>Prasoon <span class="l2">Kundu</span></h1>
+        <p class="lede">Full-stack developer in Lucknow, finishing a B.Tech in CSE at Amity in 2027. I build tools people actually use, measure them, and write down where they break.</p>
+        <div class="btns">
+          <a class="btn" href="#yard">Open the yard ↓</a>
+          <a class="btn alt" data-link="resume" href="#" target="_blank" rel="noopener">Resume ↗</a>
+        </div>
+      </div>
+      <div class="box-stage" id="stage">
+        <div class="box" id="box" aria-label="Shipping container painted KNDU, door end">
+          <div class="sticker">Ships<br>in 2027</div>
+          <div class="door l"><span class="bar"></span><span class="bar"></span><span class="paint">KNDU</span></div>
+          <div class="door r"><span class="bar"></span><span class="bar"></span><span class="paint">KNDU</span></div>
+          <div class="code"><span data-iso="KNDU202707"></span><br>45G1</div>
+          <figure class="pass">
+            <span class="clip" aria-hidden="true"></span>
+            <span class="pass-h mono">Port pass · Crew</span>
+            <img src="photo.jpg" alt="Prasoon Kundu" width="480" height="560">
+            <figcaption><b>Prasoon Kundu</b><span class="mono">Full-stack · SDE '27</span></figcaption>
+            <span class="barcode" aria-hidden="true"></span>
+          </figure>
+          <div class="plate" aria-label="Data plate">
+            <span class="h">DATA PLATE · CSC</span>
+            <div><span>OWNER</span><span>P. KUNDU</span></div>
+            <div><span>PAYLOAD</span><span>FULL-STACK · LINUX</span></div>
+            <div><span>LOADED</span><span>LUCKNOW, IN</span></div>
+            <div><span>BOUND</span><span>SDE ROLES</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEALTHCHECKS -->
+  <section class="hc" aria-label="Healthchecks">
+    <div class="wrap hc-in">
+      <div class="hc-item"><span class="hc-tag mono">ContainerMind · passing</span><span class="hc-num" data-count="51" data-suffix=" s">51 s</span><span class="hc-lbl">median warning before a container fails, at 87% precision and 93% recall</span></div>
+      <div class="hc-item"><span class="hc-tag mono">Flood Cutoff · passing</span><span class="hc-num" data-count="0.795" data-dec="3">0.795</span><span class="hc-lbl">IoU against Sentinel-1 radar on Prayagraj's 2025 flood peak</span></div>
+      <div class="hc-item"><span class="hc-tag mono">Ambit · passing</span><span class="hc-num">&lt;1 ms</span><span class="hc-lbl">to rank and order a full music queue from a 494-track corpus</span></div>
+      <div class="hc-item"><span class="hc-tag mono">Community · passing</span><span class="hc-num" data-count="200" data-suffix="+">200+</span><span class="hc-lbl">attendees at each of two FOSS conferences I helped run with IIIT Lucknow</span></div>
+    </div>
+  </section>
+
+  <div class="marq" aria-hidden="true">
+    <div class="marq-track" id="marq">
+      <span>Linux<i>✦</i>Docker<i>✦</i>Python<i>✦</i>TypeScript<i>✦</i>React<i>✦</i>Next.js<i>✦</i>FastAPI<i>✦</i>Node<i>✦</i>Postgres<i>✦</i>C++<i>✦</i>FOSS United Lucknow<i>✦</i>Measure first<i>✦</i></span>
+      <span>Linux<i>✦</i>Docker<i>✦</i>Python<i>✦</i>TypeScript<i>✦</i>React<i>✦</i>Next.js<i>✦</i>FastAPI<i>✦</i>Node<i>✦</i>Postgres<i>✦</i>C++<i>✦</i>FOSS United Lucknow<i>✦</i>Measure first<i>✦</i></span>
+    </div>
+  </div>
+
+  <!-- YARD -->
+  <section class="sec yard" id="yard">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="eyebrow mono">Bay 01 · Cargo</span><h2>The yard</h2></div>
+        <p>Six containers, six projects. Hover to crack the doors open, click to read the full manifest: what I built, what it runs on, and where it falls short.</p>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="yard-note mono">Every container number on this page has a valid ISO 6346 check digit. Yes, I checked.</p>
+    </div>
+  </section>
+
+  <!-- LAYERS -->
+  <section class="sec layers" id="layers">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="eyebrow mono">Bay 02 · Image layers</span><h2>Built in layers</h2></div>
+        <p>No skill on this list came from a tutorial alone. Each layer was added by a project or a club. The comments say which one.</p>
+      </div>
+      <div class="df">
+        <div class="df-bar mono"><i></i><i></i><i></i><span>Dockerfile · prasoon/kundu:2027</span></div>
+        <div class="df-code">
+          <ol>
+            <li><span><span class="k">FROM</span> <span class="v">ubuntu:lucknow</span>                              <span class="c"># born, raised, still here</span></span></li>
+            <li><span><span class="k">LABEL</span> <span class="s">maintainer="Prasoon Kundu" degree="B.Tech CSE, Amity Lucknow '27"</span></span></li>
+            <li><span><span class="k">RUN</span> <span class="v">apt-get install -y linux git</span>                <span class="c"># 2.5 yrs teaching both at ALiAS</span></span></li>
+            <li><span><span class="k">COPY</span> <span class="v">cpp/ python/ java/ typescript/ sql/ /lang/</span></span></li>
+            <li><span><span class="k">RUN</span> <span class="v">make dsa oop dbms os</span>                        <span class="c"># the core CS, done properly</span></span></li>
+            <li><span><span class="k">RUN</span> <span class="v">pip install fastapi scikit-learn librosa essentia</span>   <span class="c"># ContainerMind, Ambit</span></span></li>
+            <li><span><span class="k">RUN</span> <span class="v">npm install react next express</span>               <span class="c"># Ambit, ContainerMind dashboard</span></span></li>
+            <li><span><span class="k">ADD</span> <span class="v">postgres/ mongodb/ /var/lib/data/</span>           <span class="c"># jobq: retries + dead letters</span></span></li>
+            <li><span><span class="k">RUN</span> <span class="v">docker compose up --inject-faults</span>           <span class="c"># ContainerMind: 155 episodes</span></span></li>
+            <li><span><span class="k">COPY</span> <span class="v">osm/ fabdem/ sentinel-1/ /data/flood/</span>      <span class="c"># Flood Cutoff: 49,012 junctions</span></span></li>
+            <li><span><span class="k">RUN</span> <span class="v">deploy --vercel --netlify --cloudflare-pages</span></span></li>
+            <li><span><span class="k">ENV</span> <span class="v">MEASURE_FIRST=true</span>                          <span class="c"># held-out data or it didn't happen</span></span></li>
+            <li><span><span class="k">EXPOSE</span> <span class="v">2027</span>                                      <span class="c"># graduating, open to SDE roles</span></span></li>
+            <li><span><span class="k">HEALTHCHECK</span> <span class="v">CMD curl -f github.com/CoderKundu || exit 1</span></span></li>
+            <li><span><span class="k">CMD</span> <span class="s">["ship", "--to", "real-users"]</span></span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOG -->
+  <section class="sec log" id="log">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="eyebrow mono">Bay 03 · Yard log</span><h2>Yard log</h2></div>
+        <p>Where the hours went outside the projects: placements, a Linux club, community meetups and conferences.</p>
+      </div>
+      <ol class="tl">
+        <li><span class="when">Aug 2026 → now</span><div><h3>Placement Coordinator</h3><span class="org">Amity University Lucknow</span></div><p>Student coordinator for campus placements, working between recruiters and the student body.</p></li>
+        <li><span class="when">May 2025 → now</span><div><h3>Volunteer</h3><span class="org">FOSS United Lucknow</span></div><p>Run meetups for the city's open-source community. Helped run two conferences with IIIT Lucknow, each with 200+ attendees.</p></li>
+        <li><span class="when">Jan 2024 → Jul 2026</span><div><h3>Lead Volunteer</h3><span class="org">ALiAS · Amity Linux Assistance Sapience</span></div><p>Ran Git and frontend workshops for students and organised the campus Linux Install Fest.</p></li>
+        <li><span class="when">Jul 2023 → 2027</span><div><h3>B.Tech, CSE</h3><span class="org">Amity University Lucknow · CGPA 8.08</span></div><p>Final year, on a 50% merit scholarship. Before that, ISC from City Montessori School, Lucknow: 92.75% in 2022.</p></li>
+      </ol>
+      <div class="extra">
+        <div>
+          <h3>Paperwork</h3>
+          <div class="papers">
+            <div><span class="mono">Cert</span>Oracle Cloud Infrastructure AI Foundations</div>
+            <div><span class="mono">Sim</span>Deloitte Australia · Data Analytics job simulation</div>
+            <div><span class="mono">Sim</span>Goldman Sachs · Controllers job simulation</div>
+          </div>
+        </div>
+        <div>
+          <h3>Off duty</h3>
+          <div class="stickers">
+            <span class="stk">Badminton<small>court, evenings</small></span>
+            <span class="stk">Video games<small>one more match</small></span>
+            <span class="stk">Cooking<small>occasionally, ambitiously</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GATE -->
+  <section class="gate" id="gate">
+    <div class="wrap gate-in">
+      <span class="eyebrow mono" style="background:var(--safety);color:var(--ink)">Gate out</span>
+      <h2>Got cargo? <span>Let's ship it.</span></h2>
+      <div class="mail">
+        <span class="mail-addr" id="mail">prasoonk2810@gmail.com</span>
+        <button class="copy" id="copy" type="button">Copy email</button>
+      </div>
+      <div class="socials">
+        <a data-link="github" href="https://github.com/CoderKundu" target="_blank" rel="noopener">GitHub ↗</a>
+        <a data-link="linkedin" href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a data-link="resume" href="#" target="_blank" rel="noopener">Resume ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in mono">
+    <span>$ docker stop kundu → <span class="exit">exited (0)</span></span>
+    <span>© 2026 Prasoon Kundu · Lucknow, IN</span>
+  </div>
+</footer>
+
+<dialog id="manifest" aria-labelledby="m-name">
+  <div class="m-head mono"><span>Bill of lading</span><span id="m-code"></span><button class="m-close" id="m-close" type="button">Close ✕</button></div>
+  <div class="m-title" id="m-title"><h3 id="m-name"></h3><p id="m-line"></p></div>
+  <div class="m-rows" id="m-rows"></div>
+</dialog>
+
+<script>
+/* ===== EDIT THESE ===== */
+const CONFIG = {
+  email:    "prasoonk2810@gmail.com",
+  linkedin: "https://www.linkedin.com/in/prasoon-kundu-772809294/",
+  resume:   "https://drive.google.com/file/d/1kLvdv7gm1hCvWT8NwdyP6bbaXnyEORar/view?usp=sharing",
+  github:   "https://github.com/CoderKundu"
+};
+
+const PROJECTS = [
+  { id:"cm", name:"ContainerMind", serial:"000034", size:"45G1", color:"var(--cobalt)", status:["research","IEEE paper"],
+    line:"Warns you a container is about to fail a median 51 seconds before it does.",
+    stack:["Docker","FastAPI","Next.js","Python","scikit-learn"],
+    built:[
+      "Random forest trained on telemetry from 155 fault-injection episodes across 3 fault types",
+      "87% precision and 93% recall on 31 held-out episodes, with failures flagged a median 51 s ahead",
+      "False alarms held to 0.24 per hour by fitting the alert threshold on a separate validation split",
+      "Memory-exhaustion faults surface 82 s ahead, CPU saturation 43 s",
+      "FastAPI backend and a Next.js dashboard for container health"],
+    limits:"Numbers come from controlled fault-injection experiments, not a production fleet. Being written up as an IEEE research paper.",
+    links:[["Code on GitHub","https://github.com/CoderKundu/ContainerMind"]] },
+  { id:"flood", name:"Flood Cutoff", serial:"000041", size:"45G1", color:"var(--teal)", status:["done","Complete"],
+    line:"Shows which Prayagraj roads go under, and who gets cut off, as the Ganga and Yamuna rise.",
+    stack:["Python","OpenStreetMap","FABDEM","Sentinel-1","Graph analysis"],
+    built:[
+      "Graph-reachability analysis over a 10,400 km, 49,012-junction OSM drivable network",
+      "25 gauge levels from 83 to 89 m, filtered through the FABDEM elevation model",
+      "134 km of road mapped as impassable at Prayagraj's 84.73 m danger mark",
+      "Modelled flood extent checked against Sentinel-1 radar at 0.795 IoU on the measured 2025 peak"],
+    limits:"Scoped to one city, Prayagraj. A planning tool, not an official warning system.",
+    links:[["Code on GitHub","https://github.com/CoderKundu/prayagraj-flood-map"]] },
+  { id:"ambit", name:"Ambit", serial:"000011", size:"45G1", color:"var(--magenta)", status:["live","Live"],
+    line:"Music picked for the moment you're in, and every pick explains itself.",
+    stack:["Python","Essentia","librosa","Next.js","React"],
+    built:[
+      "Four-stage Python pipeline distils 1,085 Jamendo tracks into a 494-track scored corpus",
+      "Essentia and librosa features under percentile normalisation, so different scales compare fairly",
+      "Ranks and orders a full queue in under 1 ms per query",
+      "Explanations generated from live scoring deltas, not canned text",
+      "Blind-labelled evaluation harness with a tempo-only baseline and per-feature ablations"],
+    limits:"The harness shows the current label set is too small to separate models, and the README says so instead of reporting a flattering score.",
+    links:[["Live site","https://ambit-mu.vercel.app"],["Code on GitHub","https://github.com/CoderKundu/ambit"]] },
+  { id:"queue", name:"jobq", serial:"000058", size:"22G1", color:"var(--orange)", status:["done","Complete"],
+    line:"Background jobs that retry, and land in a dead-letter queue instead of vanishing.",
+    stack:["Postgres","Backend"],
+    built:[
+      "Jobs stored in Postgres, so the queue needs no separate broker",
+      "Automatic retries for failed jobs",
+      "Dead-letter handling for jobs that keep failing, so nothing disappears silently"],
+    links:[["Code on GitHub","https://github.com/CoderKundu/jobq"]] },
+  { id:"speed", name:"net-speedtest", serial:"000027", size:"22G1", color:"var(--sky)", status:["live","Live"],
+    line:"A speed test that runs in your browser and tells you how far to trust the number.",
+    stack:["JavaScript","Netlify Functions"],
+    built:[
+      "Rebuilt from a broken architecture into a browser-side measurement engine backed by Netlify Functions",
+      "Fixed seven measurement bugs one by one, including a static-asset issue that skewed download throughput",
+      "Bufferbloat grading and three-state verdicts instead of one scary number"],
+    limits:"Accuracy limits are documented in the README, so users know when a browser test can't be trusted.",
+    links:[["Live site","https://net-speedtest.netlify.app"],["Code on GitHub","https://github.com/CoderKundu/internet-speed-test"]] },
+  { id:"fr", name:"FormReady", serial:"000065", size:"22G1", color:"var(--ink-2)", status:["transit","In transit"],
+    line:"Gets exam-portal photos, signatures and PDFs past upload rules without uploading them anywhere.",
+    stack:["Browser-only","Cloudflare Pages"],
+    built:[
+      "Runs entirely in the browser, so files never leave the device",
+      "Presets for SSC, UPSC, NTA, IBPS and UPSSSC upload rules",
+      "Shipping to real users on Cloudflare Pages"],
+    limits:"Being built now. ETA 18 Nov 2026.",
+    links:[] }
+];
+
+/* ISO 6346 check digit */
+const ISOV={};(()=>{let n=10;for(const c of "ABCDEFGHIJKLMNOPQRSTUVWXYZ"){if(n%11===0)n++;ISOV[c]=n++;}})();
+function isoCode(s){let t=0;[...s].forEach((c,i)=>{t+=(/\d/.test(c)?+c:ISOV[c])*2**i});return t%11%10}
+function isoHTML(s){return `${s.slice(0,4)} ${s.slice(4)}<span class="cd">${isoCode(s)}</span>`}
+document.querySelectorAll("[data-iso]").forEach(el=>el.innerHTML=isoHTML(el.dataset.iso));
+
+/* links */
+document.querySelectorAll("[data-link]").forEach(a=>{const v=CONFIG[a.dataset.link];if(v)a.href=v});
+document.getElementById("mail").textContent=CONFIG.email;
+
+/* yard */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const grid=document.getElementById("grid");
+grid.innerHTML=PROJECTS.map(p=>{
+  const door=side=>`<div class="c-door ${side}"><span class="bar"></span><span class="bar"></span><span class="c-paint">${esc(p.name)}</span></div>`;
+  return `<button class="crate" type="button" data-id="${p.id}" style="--c:${p.color};--fs:${p.name.length>10?.72:1}" aria-label="${esc(p.name)}: open manifest">
+    <div class="c-top"><span>${isoHTML("KNDU"+p.serial).replace('class="cd"','class="cd" style="border-color:currentColor"')}</span><span class="sz">${p.size}</span><span class="chip ${p.status[0]}">${p.status[1]}</span></div>
+    <div class="c-body">
+      <div class="c-in"><div class="tags">${p.stack.map(t=>`<span>${esc(t)}</span>`).join("")}</div><span class="c-open">Read manifest →</span></div>
+      ${door("l")}${door("r")}
+    </div>
+    <p class="c-line">${esc(p.line)}</p>
+  </button>`}).join("");
+
+/* manifest dialog */
+const dlg=document.getElementById("manifest");
+function openManifest(id){
+  const p=PROJECTS.find(x=>x.id===id); if(!p) return;
+  document.getElementById("m-code").innerHTML=isoHTML("KNDU"+p.serial).replace('class="cd"','class="cd" style="border-color:currentColor"')+" · "+p.size;
+  document.getElementById("m-title").style.setProperty("--c",p.color);
+  document.getElementById("m-name").textContent=p.name;
+  document.getElementById("m-line").textContent=p.line;
+  const rows=[
+    ["Status",esc(p.status[1])],
+    ["Shipper","Prasoon Kundu"],
+    ["Contents",esc(p.stack.join(" · "))],
+    ["What's inside",`<ul>${p.built.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`]
+  ];
+  if(p.limits) rows.push(["Known limits",esc(p.limits)]);
+  if(p.links.length) rows.push(["Links",`<div class="m-links">${p.links.map(([t,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>`]);
+  document.getElementById("m-rows").innerHTML=rows.map(([k,v])=>`<div class="k">${k}</div><div>${v}</div>`).join("");
+  if(typeof dlg.showModal==="function") dlg.showModal(); else dlg.setAttribute("open","");
+}
+grid.addEventListener("click",e=>{const b=e.target.closest(".crate");if(b)openManifest(b.dataset.id)});
+document.getElementById("m-close").addEventListener("click",()=>dlg.close());
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+
+/* copy email */
+document.getElementById("copy").addEventListener("click",function(){
+  const btn=this, done=t=>{btn.textContent=t;setTimeout(()=>btn.textContent="Copy email",1800)};
+  try{
+    navigator.clipboard.writeText(CONFIG.email).then(()=>done("Copied ✓"),()=>{selectMail();done("Selected")});
+  }catch(e){selectMail();done("Selected")}
+});
+function selectMail(){const r=document.createRange();r.selectNodeContents(document.getElementById("mail"));const s=getSelection();s.removeAllRanges();s.addRange(r)}
+
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* boot log: retype on load (content is already there at rest) */
+(function(){
+  if(reduce) return;
+  const el=document.getElementById("boot"), full=el.innerHTML, lines=full.split("\n");
+  el.innerHTML='<span class="caret"></span>';
+  let i=0;
+  (function next(){
+    if(i>=lines.length){el.innerHTML=full;return}
+    i++; el.innerHTML=lines.slice(0,i).join("\n")+(i<lines.length?'\n<span class="caret"></span>':'');
+    setTimeout(next,i===1?260:170);
+  })();
+})();
+
+/* hero container follows the pointer */
+(function(){
+  if(reduce||matchMedia("(hover:none)").matches) return;
+  const hero=document.querySelector(".hero"), box=document.getElementById("box");
+  hero.addEventListener("pointermove",e=>{
+    const r=hero.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    box.style.setProperty("--ry",(x*24).toFixed(2)+"deg");
+    box.style.setProperty("--rx",(-y*16).toFixed(2)+"deg");
+  });
+  hero.addEventListener("pointerleave",()=>{box.style.removeProperty("--ry");box.style.removeProperty("--rx")});
+})();
+
+/* gantry trolley = scroll progress */
+(function(){
+  const t=document.getElementById("trolley"), lab=document.getElementById("loaded");
+  let ticking=false;
+  function upd(){
+    const max=document.documentElement.scrollHeight-innerHeight;
+    const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+    t.style.setProperty("--x",((innerWidth-46)*p).toFixed(1)+"px");
+    lab.textContent=p>=.995?"LOADED 100% ✓":"LOADED "+String(Math.round(p*100)).padStart(2,"0")+"%";
+    ticking=false;
+  }
+  addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});
+  addEventListener("resize",upd); upd();
+})();
+
+/* count-up when healthchecks enter view (final values are in the HTML) */
+(function(){
+  if(reduce||!("IntersectionObserver" in window)) return;
+  const els=[...document.querySelectorAll("[data-count]")];
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{
+    if(!en.isIntersecting) return; io.unobserve(en.target);
+    const el=en.target, end=parseFloat(el.dataset.count), dec=+(el.dataset.dec||0), suf=el.dataset.suffix||"", t0=performance.now(), d=1100;
+    (function f(t){const k=Math.min(1,(t-t0)/d), e=1-Math.pow(1-k,3);el.textContent=(end*e).toFixed(dec)+suf;if(k<1)requestAnimationFrame(f)})(t0);
+  })},{threshold:.6});
+  els.forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
